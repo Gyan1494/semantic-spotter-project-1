@@ -2,46 +2,56 @@
 
 ## 1. Background
 
-This project demonstrate "Building Effective Search Systems HelpMateAI" with a long insurance policy document using RAG
-techniques.
+This project demonstrate "Build a RAG System" in insurance domain
+using  [LangChain](https://python.langchain.com/docs/introduction/).
 
 ## 2. Problem Statement
 
 The goal of the project is to build a robust generative search system capable of effectively and accurately
-answering questions from a policy document.
-
-We will be using a single long life insurance policy document for this project.
+answering questions from a bunch of policy documents.
 
 ## 3. Document
 
-1. The policy document can be found [here](Principal-Sample-Life-Insurance-Policy.pdf)
+1. The policy documents can be found [here](./Policy+Documents)
 
 ## 4. Approach
 
-The project should implement all the three layers effectively. It will be key to try out various strategies and
-experiments in various layers in order to build an effective search system. Let's explore what we need to do in each of
-the layers.
+LangChain is a framework that simplifies the development of LLM applications LangChain offers a suite of tools,
+components, and interfaces that simplify the construction of LLM-centric applications. LangChain enables developers to
+build applications that can generate creative and contextually relevant content LangChain provides an LLM class designed
+for interfacing with various language model providers, such as OpenAI, Cohere, and Hugging Face.
 
-1. **The Embedding Layer:** The PDF document needs to be effectively processed, cleaned, and chunked for the embeddings.
-   Here, the choice of the chunking strategy will have a large impact on the final quality of the retrieved results. So,
-   we need to make sure that we try out various stratgies and compare their performances.
+LangChain's versatility and flexibility enable seamless integration with various data sources, making it a comprehensive
+solution for creating advanced language model-powered applications.
 
-   Another important aspect in the embedding layer is the choice of the embedding model. we can choose to embed the
-   chunks using the OpenAI embedding model or any model from the SentenceTransformers library on HuggingFace.
+LangChain's open-source framework is available to build applications in Python or JavaScript/TypeScript. Its core design
+principle is composition and modularity. By combining modules and components, one can quickly build complex LLM-based
+applications. LangChain is an open-source framework that makes it easier to build powerful and personalizeable
+applications with LLMs relevant to user’s interests and needs. It connects to external systems to access information
+required to solve complex problems. It provides abstractions for most of the functionalities needed for building an LLM
+application and also has integrations that can readily read and write data, reducing the development speed of the
+application. LangChains's framework allows for building applications that are agnostic to the underlying language model.
+With its ever expanding support for various LLMs, LangChain offers a unique value proposition to build applications and
+iterate continuously.
 
-2. **The Search Layer:** Here, we need to design at least 3 queries against which you will test your system. You
-   need to understand and skim through the document, and accordingly come up with some queries, the answers to which
-   can be found in the policy document.
+LangChain framework consists of the following:
 
-   Next, we need to embed the queries and search your ChromaDB vector database against each of these queries.
-   Implementing a cache mechanism is also mandatory.
+- **Components**: LangChain provides modular abstractions for the components necessary to work with language models.
+  LangChain also has collections of implementations for all these abstractions. The components are designed to be easy
+  to use, regardless of whether you are using the rest of the LangChain framework or not.
+- **Use-Case Specific Chains**: Chains can be thought of as assembling these components in particular ways in order to
+  best accomplish a particular use case. These are intended to be a higher level interface through which people can
+  easily get started with a specific use case. These chains are also designed to be customizable.
 
-   Finally, we need to implement the re-ranking block, and for this we can choose from a range of cross-encoding
-   models on HuggingFace.
+The LangChain framework revolves around the following building blocks:
 
-3. **The Generation Layer:** In the generation layer, the final prompt that we design is the major component. We need to
-   make sure that the prompt is exhaustive in its instructions, and the relevant information is correctly passed to the
-   prompt. We may also choose to provide some few-shot examples in an attempt to improve the LLM output.
+* Model I/O: Interface with language models (LLMs & Chat Models, Prompts, Output Parsers)
+* Retrieval: Interface with application-specific data (Document loaders, Document transformers, Text embedding models,
+  Vector stores, Retrievers)
+* Chains: Construct sequences/chains of LLM calls
+* Memory: Persist application state between runs of a chain
+* Agents: Let chains choose which tools to use given high-level directives
+* Callbacks: Log and stream intermediate steps of any chain
 
 ## 5. System Layers
 
