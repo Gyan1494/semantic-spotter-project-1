@@ -86,7 +86,3 @@ The LangChain framework revolves around the following building blocks:
 - Python 3.7+
 - Please ensure that you add your OpenAI API key to the empty text file named "OpenAI_API_Key" in order to access the
   OpenAI API.
-
-## 8. Query Screenshots
-
-![](./queries-answer.png)
