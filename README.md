@@ -123,4 +123,4 @@ The LangChain framework revolves around the following building blocks:
   ```
 - Open
   the [notebook](https://github.com/SanjayaKumarSahoo/semantic-spotter-project/blob/main/semantic-spotter-langchain-notebook.ipynb)
-  in jupyter and run the cells.
+  in jupyter and run all cells.
