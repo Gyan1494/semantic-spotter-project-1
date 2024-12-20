@@ -55,34 +55,72 @@ The LangChain framework revolves around the following building blocks:
 
 ## 5. System Layers
 
-- **Reading & Processing PDF File:** We will be using [pdfplumber](https://pypi.org/project/pdfplumber/) to read and
-  process the PDF files. [pdfplumber](https://pypi.org/project/pdfplumber/) allows
-  for better parsing of the PDF file as it can read various elements of the PDF apart from the plain text, such as,
-  tables, images, etc. It also offers wide functionalities and visual debugging features to help with
-  advanced preprocessing as well.
+- **Reading & Processing PDF Files:** We will be
+  using
+  LangChain [PyPDFDirectoryLoader](https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFDirectoryLoader.html)
+  to read and process the PDF files from specified directory.
 
-- **Document Chunking:** The document contains several pages and contains huge text, before generating the embeddings,
-  we need to generate the chunks. Let's start with a basic chunking technique, and chunking the text with fixed size.
+- **Document Chunking:**  We will be
+  using LangChain [RecursiveCharacterTextSplitter](https://python.langchain.com/docs/how_to/recursive_text_splitter/).
+  This text
+  splitter is the recommended one for generic text. It is parameterized by a list of
+  characters. It tries to split on them in order until the chunks are small enough. The default list
+  is ["\n\n", "\n", " ", ""]. This has the effect of trying to keep all paragraphs (and then sentences, and then words)
+  together as long as possible, as those would generically seem to be the strongest semantically related pieces of
+  text..
 
-- **Generating Embeddings:**  Generates embedding with SentenceTransformer with all-MiniLM-L6-v2 model.
+- **Generating Embeddings:**  We will be
+  using [OpenAIEmbeddings](https://python.langchain.com/docs/integrations/text_embedding/openai/) from LangChain
+  package. The Embeddings class
+  is a class designed for interfacing with text embedding models.
+  LangChain provides support for most of the embedding model providers (OpenAI, Cohere) including sentence transformers
+  library from Hugging Face. Embeddings create a vector representation of a piece of text and supports all the
+  operations such as similarity search, text comparison, sentiment analysis etc. The base Embeddings class in LangChain
+  provides two methods: one for embedding documents and one for embedding a query.
 
-- **Store Embeddings In ChromaDB:** In this section we will store embedding in ChromaDB.
+- **Store Embeddings In ChromaDB:** In this section we will store embedding in ChromaDB. This embedding is backed by
+  LangChain [CacheBackedEmbeddings](https://python.langchain.com/api_reference/langchain/embeddings/langchain.embeddings.cache.CacheBackedEmbeddings.html)
 
-- **Semantic Search with Cache:** In this section we will introduce cache collection layer for embeddings.
+- **Retrievers:** Retrievers provide Easy way to combine documents with language models.A retriever is an interface that
+  returns documents given an unstructured query. It is more general than a vector store. A retriever does not need to be
+  able to store documents, only to return (or retrieve) them. Retriever stores data for it to be queried by a language
+  model. It provides an interface that will return documents based on an unstructured query. Vector stores can be used
+  as the backbone of a retriever, but there are other types of retrievers as well. There are many different types of
+  retrievers, the most widely supported is
+  the [VectoreStoreRetriever](https://python.langchain.com/api_reference/core/vectorstores/langchain_core.vectorstores.base.VectorStoreRetriever.html).
 
 - **Re-Ranking with a Cross Encoder:** Re-ranking the results obtained from the semantic search will sometime
   significantly improve the relevance of the retrieved results. This is often done by passing the query paired with each
-  of the retrieved responses into a cross-encoder to score the relevance of the response w.r.t. the query.
+  of the retrieved responses into a cross-encoder to score the relevance of the response w.r.t. the query. The above
+  retriever is associated
+  with [HuggingFaceCrossEncoder](https://python.langchain.com/api_reference/community/cross_encoders/langchain_community.cross_encoders.huggingface.HuggingFaceCrossEncoder.html)
+  with model BAAI/bge-reranker-base
 
-- **Retrieval Augmented Generation:** Now we have the final top search results, we can pass it to an GPT 3.5 along
-  with the user query and a well-engineered prompt, to generate a direct answer to the query along with citations.
+- **Chains:** LangChain provides Chains that can be used to combine multiple components together to create a single,
+  coherent application. For example, we can create a chain that takes user input, formats it with a PromptTemplate, and
+  then passes the formatted response to an LLM. We can build more complex chains by combining multiple chains together,
+  or by combining chains with other components. We are using pulling prompt <b>rlm/rag-promp</b> from langchain hub to
+  use in RAG chain.
 
 ## 6. System Architecture
 
-![](./architecture.png)
+![](./images/arch1.png)
+![](./images/arch2.png)
 
 ## 7. Prerequisites
 
 - Python 3.7+
-- Please ensure that you add your OpenAI API key to the empty text file named "OpenAI_API_Key" in order to access the
+- langchain 0.3.13
+- Please ensure that you add your OpenAI API key to the empty text file named "OpenAI_API_Key.txt" in order to access
+  the
   OpenAI API.
+
+## 8. Running
+
+- Clone the github repository
+  ```shell
+  $ git clone https://github.com/SanjayaKumarSahoo/semantic-spotter-project.git
+  ```
+- Open
+  the [notebook](https://github.com/SanjayaKumarSahoo/semantic-spotter-project/blob/main/semantic-spotter-langchain-notebook.ipynb)
+  in jupyter and run the cells.
